@@ -22,7 +22,7 @@ export const NavBar = () => {
                     <li className="navbar__item">
                         <button className="underline text-blue-600 hover:text-purple-700"
                             onClick={() => {
-                                localStorage.removeItem("gamer_token")
+                                localStorage.removeItem("gam_token")
                                 navigate('/login')
                             }}
                         >Logout</button>
