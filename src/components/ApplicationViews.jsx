@@ -35,8 +35,8 @@ export const ApplicationViews = () => {
             <Route path="/register" element={<Register />} />
             <Route element={<Authorized />}>
                 <Route path="/" element={<Home />} />
-                <Route path="/allrocks" element={<RockList rocks={rocksState} fetchRocks={fetchRocksFromAPI} />} />
-                <Route path="/create" element={<RockForm fetchRocks={fetchRocksFromAPI} />} />
+                <Route path="/games" element={<RockList rocks={rocksState} fetchRocks={fetchRocksFromAPI} />} />
+                <Route path="/review" element={<RockForm fetchRocks={fetchRocksFromAPI} />} />
                 <Route path="/mine" element={<RockList rocks={rocksState} fetchRocks={fetchRocksFromAPI} />} />
             </Route>
         </Routes>
