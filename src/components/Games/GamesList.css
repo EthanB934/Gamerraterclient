@@ -1,0 +1,22 @@
+.game-list {
+    /* Creates a flex-box container for all game cards */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 50vw;
+    /* Centers flex-box container on page */
+    margin: 0 auto; 
+    justify-content: space-evenly;
+    /* Adds addition whitespace left and right of each game card */
+    gap: 5rem;
+}
+.game {
+    /* Adds top and bottom margin to each game card */
+    margin: 50px 0 50px 0;
+}
+.game-image {
+    /* Limits height and width of any picture to these dimensions
+       Grows pictures to height and width if they are smaller*/
+    height: 200px;
+    width: 250px;
+}
