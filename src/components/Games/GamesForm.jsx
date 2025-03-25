@@ -47,8 +47,8 @@ export const GamesForm = ({ token }) => {
       })
     })
 
-    if (response.ok) {
-        navigate("/games")
+    if (gamePictureResponse.ok) {
+        navigate("/")
     }
     else {
         window.alert("Something has went wrong with the submission")

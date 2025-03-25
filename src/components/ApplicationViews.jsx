@@ -20,7 +20,7 @@ export const ApplicationViews = () => {
         <Route path="/register" element={<Register />} />
         <Route element={<Authorized />}>
           <Route path="/" element={<Home token={token}/>} />
-          <Route path="games" element={<GamesForm token={token}/>} />
+          <Route path="game-form" element={<GamesForm token={token}/>} />
         </Route>
       </Routes>
     </BrowserRouter>
