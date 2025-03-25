@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css"
 
 export const Login = () => {
-    const [username, setUsername] = useState("ethanBrown")
-    const [password, setPassword] = useState("password123")
+    const [username, setUsername] = useState("steve@brownlee.com")
+    const [password, setPassword] = useState("brownlee")
     const existDialog = useRef()
     const navigate = useNavigate()
 
@@ -37,7 +37,7 @@ export const Login = () => {
 
             <section>
                 <form className="form--login" onSubmit={handleLogin}>
-                    <h1 className="text-4xl mt-7 mb-3">Gamer Rater</h1>
+                    <h1 className="text-4xl mt-7 mb-3">Rock of Ages</h1>
                     <h2 className="text-xl mb-10">Please sign in</h2>
                     <fieldset className="mb-4">
                         <label> Username </label>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import "./GamesList.css"
 export const GamesList = ({ token }) => {
@@ -40,3 +41,8 @@ export const GamesList = ({ token }) => {
     <>{games.length > 0 ? <ul className="game-list">{gamesListing(games)}</ul> : "Loading games list..."}</>
   );
 };
+=======
+export const GamesList = () => {
+    return <>This is where the list of added games will be</>
+}
+>>>>>>> parent of 804b1a8 (Updated localstorage key retrieval in authorized and navbar components)
