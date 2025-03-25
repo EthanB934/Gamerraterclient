@@ -1,0 +1,40 @@
+.game-form {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+}
+.entry-group {
+    display: grid;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: fit-content;
+    border: 5px double black;
+    justify-content: left;
+    padding: 2rem 10rem 2rem 10rem;
+    background-color: bisque;
+    gap: 10px;
+
+    input {
+        background-color: whitesmoke;
+        color: black;
+        border-bottom: 1.25px dashed red;
+    }
+    #file-input {
+        height: fit-content;
+    }
+
+    textarea {
+        background-color: whitesmoke;
+        height: 6rem;
+        color: black;
+        border-bottom: 1.25px dashed red;
+    }
+
+    .form-submission {
+        background-color: yellow;
+        margin: 1rem auto;
+        width: 50%;
+        border: 1px solid black;
+        color: blue
+    }
+}
