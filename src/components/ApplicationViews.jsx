@@ -4,6 +4,7 @@ import { Login } from "../pages/Login.jsx";
 import { Register } from "../pages/Register.jsx";
 import { useEffect, useState } from "react";
 import { GamesList } from "./Games/GamesList.jsx";
+import { GameDetails } from "./Games/GamesDetails.jsx";
 
 export const ApplicationViews = () => {
   const [token, setToken] = useState({});
@@ -45,6 +46,7 @@ export const ApplicationViews = () => {
         <Route path="/register" element={<Register />} />
         <Route element={<Authorized />}>
           <Route path="/" element={<GamesList token={token} games={games}/>} />
+          <Route path="games/:gameId" element={<GameDetails token={token} games={games}/>} />
         </Route>
       </Routes>
     </BrowserRouter>
