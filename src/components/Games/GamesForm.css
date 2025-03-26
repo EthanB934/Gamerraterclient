@@ -38,3 +38,11 @@
         color: blue
     }
 }
+.category-list {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+}
+
+.category {
+    padding-left: 0.5   rem; 
+}

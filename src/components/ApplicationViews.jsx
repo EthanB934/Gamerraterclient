@@ -11,6 +11,7 @@ import Home from "../pages/Home.jsx";
 export const ApplicationViews = () => {
   const [token, setToken] = useState({});
   const [games, setGames] = useState([])
+  const [categories, setCategories] = useState([])
   // Gets user-specific token from local storage after login or registration process
   useEffect(() => {
     setToken(JSON.parse(localStorage.getItem("gamer_token")));
@@ -32,9 +33,22 @@ export const ApplicationViews = () => {
     setGames(games)
   }
 
+  const getAllCategories = async () => {
+    const categoriesResponse = await fetch("http://localhost:8000/categories", {
+      method: "GET",
+      headers: {
+        "Authorization": `Token ${token.token}`,
+        Accept: "application/json"
+      }
+    })
+    const categories = await categoriesResponse.json()
+    setCategories(categories)
+  }
+
   useEffect(() => {
     if(token.token) {
       getAllGames()
+      getAllCategories()
     }
     else {
       return;
@@ -49,7 +63,7 @@ export const ApplicationViews = () => {
         <Route element={<Authorized />}>
           <Route path="/" element={<Home token={token} games={games}/>} />
           <Route path="games/:gameId" element={<GameDetails token={token} games={games}/>} />
-          <Route path="game-form" element={<GamesForm token={token}/>} />
+          <Route path="game-form" element={<GamesForm token={token} categories={categories}/>} />
         </Route>
       </Routes>
     </BrowserRouter>

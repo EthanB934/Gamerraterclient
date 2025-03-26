@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
-import "./GamesList.css"
-import "../../pages/Home.css"
+import "./GamesList.css";
+import "../../pages/Home.css";
 export const GamesList = ({ token, games }) => {
   const listGames = (games) => {
     const gamesList = games.map((game) => {
-      return <li key={game.id} className="game-card"><Link to={`/games/${game.id}`} className="game">{game.title}{" "}<i class="fa-solid fa-arrow-right"></i></Link></li>;
+      return (
+        <li key={game.id} className="game-card">
+          <Link to={`/games/${game.id}`} className="game">
+            {game.title} <i class="fa-solid fa-arrow-right"></i>
+          </Link>
+        </li>
+      );
     });
     gamesList.join(" ");
     return gamesList;

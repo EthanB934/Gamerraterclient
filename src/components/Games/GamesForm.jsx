@@ -1,11 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./GamesForm.css";
 import { useNavigate } from "react-router-dom";
-export const GamesForm = ({ token }) => {
-  const [pictureData, setPictureData] = useState("")
+export const GamesForm = ({ token, categories }) => {
+  const [category, setCategory] = useState([]);
   const navigate = useNavigate();
   const title = useRef();
-  const picture = useRef();
   const description = useRef();
   const designer = useRef();
   const year = useRef();
@@ -23,50 +22,63 @@ export const GamesForm = ({ token }) => {
       play_time: playTime.current.value,
       age_to_play: age.current.value,
     };
-    const gameResponse = await fetch("http://localhost:8000/games", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token.token}`,
-        Accept: "application/json",
-      },
-      body: JSON.stringify(gameForm),
-    });
-    const createdData = await gameResponse.json()
-    
-    const gamePictureResponse = await fetch("http://localhost:8000/gamepictures", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${token.token}`,
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        game: createdData,
-        game_image: pictureData
-      })
-    })
+    console.log(gameForm);
+    // const gameResponse = await fetch("http://localhost:8000/games", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Token ${token.token}`,
+    //     Accept: "application/json",
+    //   },
+    //   body: JSON.stringify(gameForm),
+    // });
 
-    if (gamePictureResponse.ok) {
-        navigate("/")
-    }
-    else {
-        window.alert("Something has went wrong with the submission")
+    if (gameResponse.ok) {
+      navigate("/");
+    } else {
+      window.alert("Something has went wrong with the submission");
     }
   };
 
-  const getBase64 = (file, callback) => {
-    const reader = new FileReader();
-    reader.addEventListener("load", () => callback(reader.result));
-    reader.readAsDataURL(file)
-  }
+  const listCategories = () => {
+    // Maps a list of checkboxes representing each category
+    return categories.map((category) => {
+      return (
+        <section key={category.id}> 
+        {/* Each checkbox is listening for onChange event */}
+          <input type="checkbox" id={category.id}  onChange={handleCheckboxSelection} />
+          {category.name}
+        </section>
+      );
+    });
+  };
 
-  const createGameImageString = (event) => {
-    getBase64(event.target.files[0], (base64ImageString) => {
-      console.log("Base64 of file is ", base64ImageString)
-      setPictureData(base64ImageString)
-    })
-  }
+  const handleCheckboxSelection = (event) => {
+    // Selects all checkboxes it document. We will iterate through modifying their properties
+    const checkboxes = document.querySelectorAll("input[type=\"checkbox\"]")
+    if (event.target.checked) {
+      // Retrieves the id of the selected checkbox
+      const checkBoxId = parseInt(event.target.id);
+      // Stores the checkBox's unique id in state
+      setCategory([...category, checkBoxId]);
+      // Disables all other checkboxes that were not chosen
+      checkboxes.forEach((checkbox) => {
+        if(checkbox.id !== event.target.id) {
+          checkbox.disabled = true;
+        }
+      })
+    }
+    else {
+      // If the chosen checkbox is unchecked
+      // Resets the chosen checkbox array to an empty array
+      setCategory([])
+      // Reenables all checkboxes again.
+      checkboxes.forEach((checkbox) => {
+        checkbox.disabled = false;
+      })
+    }
+  };
+
   return (
     <article className="game-form">
       <fieldset className="entry-group">
@@ -77,9 +89,6 @@ export const GamesForm = ({ token }) => {
           ref={title}
           placeholder="Game Title"
         />
-        <label className="file-entry column-2">Picture:</label>
-        <input type="file" id="file-input" ref={picture} onChange={createGameImageString} />
-        <input type="hidden" id="game_id" />
         <label className="description-entry ">Description:</label>
         <textarea
           type="text"
@@ -96,7 +105,7 @@ export const GamesForm = ({ token }) => {
         />
         <label className="year-entry ">Year:</label>
         <input
-          type="number" 
+          type="number"
           id="year-input"
           ref={year}
           max="2025"
@@ -116,6 +125,12 @@ export const GamesForm = ({ token }) => {
           placeholder="18"
           ref={age}
         />
+        <section className="game-categories">
+          <h2>
+            Categories (Please Choose One):
+            <ul className="category-list">{listCategories()}</ul>
+          </h2>
+        </section>
         <button
           className="form-submission"
           id="submit"
