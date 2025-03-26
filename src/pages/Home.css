@@ -15,7 +15,6 @@
     color: blue
 }
 
-main {
+:root {
     background-color: lightgrey;
-    border: 5px double black
 }
