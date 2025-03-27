@@ -18,13 +18,13 @@
 }
 .game {
     /* Adds top and bottom margin to each game card */
+    padding-left: 1rem;
     transition: all 500ms 500ms ease-in;
     display: block;
     font-size: xx-large;
     background-color: white;
     margin: 50px 0 50px 0;
-    border: 3px solid black;
-    
+    border: 3px solid black; 
 }
 .fa-solid.fa-arrow-right {
     display: flex;

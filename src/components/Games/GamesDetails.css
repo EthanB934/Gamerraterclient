@@ -1,0 +1,66 @@
+.game-title {
+    display: flex;
+    justify-content: center;
+    padding-left: 1rem;
+    align-items: center;
+    background-color: yellow;
+    color: blue;
+    height: 100px;
+    font-size: xx-large;
+    letter-spacing: 1rem;
+}
+
+@keyframes slide-in {
+    from 
+    0%
+    {
+    box-shadow: 10px 0 10px 0 rgba(0, 0, 0, 0.5);
+    }
+    25%
+    {
+    box-shadow: -10px 0 -10px 0 rgba(0, 0, 0, 0.5);
+    }
+    50%
+    {
+        box-shadow: 0 10px 0 10px rgba(0, 0, 0, 0.5);
+    }
+    to {
+        box-shadow: 0 -10px 0 -10px rgba(0, 0, 0, 0.5);
+    }
+}
+.details {
+    margin: 2rem auto;
+    background-color: white;
+    max-width: 50vw;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background: linear-gradient(180deg, white, yellow);
+    border: 5px double black;
+    gap: 20px;
+}
+.details:hover{
+    animation-name: slide-in;
+    animation-duration: 4s; 
+   
+}
+.game-description {
+    padding-left: 1rem;
+    text-align: left;
+    font-size: x-large;
+    letter-spacing: 0.25rem;
+}
+.game-designer {
+    padding-left: 1rem;
+    text-align: left;
+}
+.game-category {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 1rem;
+    letter-spacing: 0.25rem;
+}
+.details-footer {
+    border-top: 1px solid black;
+    font-size: small
+}
