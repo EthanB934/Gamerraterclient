@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./GamesForm.css";
 import { useNavigate } from "react-router-dom";
 export const GamesForm = ({ token, refetchGames, categories }) => {
-  const [category, setCategory] = useState(0);
+  const [category, setCategory] = useState([]);
   const navigate = useNavigate();
   const title = useRef();
   const description = useRef();
@@ -90,7 +90,7 @@ export const GamesForm = ({ token, refetchGames, categories }) => {
       // Retrieves the id of the selected checkbox
       const checkBoxId = parseInt(event.target.id);
       // Stores the checkBox's unique id in state
-      setCategory(checkBoxId);
+      setCategory([...category, checkBoxId]);
       // Disables all other checkboxes that were not chosen
       checkboxes.forEach((checkbox) => {
         if (checkbox.id !== event.target.id) {
