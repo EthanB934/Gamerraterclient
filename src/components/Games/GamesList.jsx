@@ -7,7 +7,7 @@ export const GamesList = ({ token, games }) => {
       return (
         <li key={game.id} className="game-card">
           <Link to={`/games/${game.id}`} className="game">
-            {game.title} <i class="fa-solid fa-arrow-right"></i>
+            {game.title} <i className="fa-solid fa-arrow-right"></i>
           </Link>
         </li>
       );

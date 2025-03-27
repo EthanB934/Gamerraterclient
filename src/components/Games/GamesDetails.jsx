@@ -1,7 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./GamesDetails.css";
-export const GameDetails = ({ token, games }) => {
+import { ReviewsList } from "./ReviewList";
+export const GameDetails = ({ token, games, reviews }) => {
   const { gameId } = useParams();
+  const navigate = useNavigate()
 
   const gameFromGames = () => {
     const game = games.find((game) => game.id === parseInt(gameId));
@@ -26,6 +28,13 @@ export const GameDetails = ({ token, games }) => {
               {" "}<strong>{game.player_count}</strong>{" "}| Estimated play time <strong>{game.play_time}</strong> hours{" "}|{" "}Recommended
               age: <strong>{game.age_to_play}</strong>{" "}|
             </footer>
+          </section>
+          <section className="game-review">
+              <button className="review-button" id="review" onClick={() => {
+                navigate(`/games/${game.id}/review`, {state: game})
+              }}>Leave a Review</button>
+              <h1 className="reviews-section-header">Reviews</h1>
+              <ReviewsList reviews={reviews} game={game}/>
           </section>
         </article>
       </>

@@ -64,3 +64,46 @@
     border-top: 1px solid black;
     font-size: small
 }
+
+.game-review {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.review-button {
+    color: blue;
+    padding: 0 2rem 0 2rem;
+    border: 2px solid black;
+}
+@keyframes go {
+    25%
+    {
+        background-color: yellow;
+        color: blue
+    }
+    75%
+    {
+        background-color: blue;
+        color: yellow;
+    }
+}
+.review-button:hover {
+    box-shadow: 0 2px 0 2px rgba(0, 0, 0, 0.5);
+    animation-name: go;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+.review-button:active {
+    animation-name: go;
+    animation-play-state: paused;
+}
+.reviews-section-header {
+    width: 100vw;
+    background-color: yellow;
+    color: blue;
+    letter-spacing: 1rem;
+    text-align: center;
+    font-size: xx-large;
+    border-bottom: 1px solid black;
+}
