@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import "./GamesForm.css";
 import { useNavigate } from "react-router-dom";
-export const GamesForm = ({ token, categories }) => {
-  const [category, setCategory] = useState([]);
+export const GamesForm = ({ token, refetchGames, categories }) => {
+  const [category, setCategory] = useState(0);
   const navigate = useNavigate();
   const title = useRef();
   const description = useRef();
@@ -12,7 +12,9 @@ export const GamesForm = ({ token, categories }) => {
   const playTime = useRef();
   const age = useRef();
 
+  // Performs POST operation for Game resource and Game-to-Category relationship
   const handleFormSubmit = async (event) => {
+    // Builds Game object
     const gameForm = {
       title: title.current.value,
       description: description.current.value,
@@ -22,20 +24,44 @@ export const GamesForm = ({ token, categories }) => {
       play_time: playTime.current.value,
       age_to_play: age.current.value,
     };
-    console.log(gameForm);
-    // const gameResponse = await fetch("http://localhost:8000/games", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Token ${token.token}`,
-    //     Accept: "application/json",
-    //   },
-    //   body: JSON.stringify(gameForm),
-    // });
 
-    if (gameResponse.ok) {
+    // Stringifies built Game object, sends request to API
+    const gameResponse = await fetch("http://localhost:8000/games", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token.token}`,
+        Accept: "application/json",
+      },
+      body: JSON.stringify(gameForm),
+    });
+
+    // Data is returned upon the game being saved in the database. We need the id of the created game
+    const createdGameData = await gameResponse.json();
+
+    // Second POST operation to create game-to-category relationship
+    const gameCategoryResponse = await fetch(
+      "http://localhost:8000/gamecategories",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token.token}`,
+        },
+        body: JSON.stringify({
+          // With the game now created, we can build out its relationship to the selected category
+          gameId: createdGameData.id,
+          categoryId: category,
+        }),
+      }
+    );
+    // Waits for gameCategoryResponse to be created before navigating to the games list
+    if (gameCategoryResponse.ok) {
+      // Refetches the now updated list of games
+      refetchGames()
       navigate("/");
     } else {
+      // Otherwise, the client will receive an error that there is an issue with the submission process
       window.alert("Something has went wrong with the submission");
     }
   };
@@ -44,9 +70,13 @@ export const GamesForm = ({ token, categories }) => {
     // Maps a list of checkboxes representing each category
     return categories.map((category) => {
       return (
-        <section key={category.id}> 
-        {/* Each checkbox is listening for onChange event */}
-          <input type="checkbox" id={category.id}  onChange={handleCheckboxSelection} />
+        <section key={category.id}>
+          {/* Each checkbox is listening for onChange event */}
+          <input
+            type="checkbox"
+            id={category.id}
+            onChange={handleCheckboxSelection}
+          />
           {category.name}
         </section>
       );
@@ -55,27 +85,26 @@ export const GamesForm = ({ token, categories }) => {
 
   const handleCheckboxSelection = (event) => {
     // Selects all checkboxes it document. We will iterate through modifying their properties
-    const checkboxes = document.querySelectorAll("input[type=\"checkbox\"]")
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     if (event.target.checked) {
       // Retrieves the id of the selected checkbox
       const checkBoxId = parseInt(event.target.id);
       // Stores the checkBox's unique id in state
-      setCategory([...category, checkBoxId]);
+      setCategory(checkBoxId);
       // Disables all other checkboxes that were not chosen
       checkboxes.forEach((checkbox) => {
-        if(checkbox.id !== event.target.id) {
+        if (checkbox.id !== event.target.id) {
           checkbox.disabled = true;
         }
-      })
-    }
-    else {
+      });
+    } else {
       // If the chosen checkbox is unchecked
       // Resets the chosen checkbox array to an empty array
-      setCategory([])
+      setCategory([]);
       // Reenables all checkboxes again.
       checkboxes.forEach((checkbox) => {
         checkbox.disabled = false;
-      })
+      });
     }
   };
 

@@ -63,7 +63,7 @@ export const ApplicationViews = () => {
         <Route element={<Authorized />}>
           <Route path="/" element={<Home token={token} games={games}/>} />
           <Route path="games/:gameId" element={<GameDetails token={token} games={games}/>} />
-          <Route path="game-form" element={<GamesForm token={token} categories={categories}/>} />
+          <Route path="game-form" element={<GamesForm token={token} refetchGames={getAllGames} categories={categories}/>} />
         </Route>
       </Routes>
     </BrowserRouter>
