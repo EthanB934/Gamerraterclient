@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css"
 
 export const Login = () => {
-    const [email, setEmail] = useState("steve@brownlee.com")
-    const [password, setPassword] = useState("brownlee")
+    const [username, setUsername] = useState("ethanBrown")
+    const [password, setPassword] = useState("password123")
     const existDialog = useRef()
     const navigate = useNavigate()
 
@@ -12,15 +12,15 @@ export const Login = () => {
         e.preventDefault()
         fetch(`http://localhost:8000/login`, {
             method: "POST",
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ username, password }),
             headers: {
                 "Content-Type": "application/json"
             }
         })
             .then(res => res.json())
             .then(authInfo => {
-                if (authInfo.valid) {
-                    localStorage.setItem("rock_token", JSON.stringify(authInfo))
+                if (authInfo) {
+                    localStorage.setItem("gamer_token", JSON.stringify(authInfo))
                     navigate("/")
                 } else {
                     existDialog.current.showModal()
@@ -40,12 +40,12 @@ export const Login = () => {
                     <h1 className="text-4xl mt-7 mb-3">Rock of Ages</h1>
                     <h2 className="text-xl mb-10">Please sign in</h2>
                     <fieldset className="mb-4">
-                        <label htmlFor="inputEmail"> Email address </label>
-                        <input type="email" id="inputEmail"
-                            value={email}
-                            onChange={evt => setEmail(evt.target.value)}
+                        <label> Username </label>
+                        <input type="text" id="inputUsername"
+                            value={username}
+                            onChange={evt => setUsername(evt.target.value)}
                             className="form-control"
-                            placeholder="Email address"
+                            placeholder="Username"
                             required autoFocus />
                     </fieldset>
                     <fieldset className="mb-4">

@@ -1,0 +1,20 @@
+.banner {
+    /* Creates flex-box container for the banner, allows easier manipulation of the text */
+    display: flex;
+    /* Enlarges website's banner */
+    height: 100px;
+    /* Inherits width from main container, no overflow */
+    width: inherit;
+    /* Creates a block-level element, not just including the text */
+    display: block;
+    background-color: yellow;
+    text-align: center;
+    align-content: center;
+    letter-spacing: 1rem;
+    font-size: xx-large;
+    color: blue
+}
+
+:root {
+    background-color: lightgrey;
+}

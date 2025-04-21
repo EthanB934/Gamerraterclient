@@ -1,0 +1,44 @@
+.all-games {
+    height: fit-content;
+}
+.games-list {
+    /* Creates a flex-box container for all game cards */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 50vw;
+    /* Centers flex-box container on page */
+    margin: 0 auto; 
+    justify-content: space-evenly;
+    /* Adds addition whitespace left and right of each game card */
+    gap: 5rem;
+}
+.games-list:nth-child(1) {
+    margin-top: 2rem;
+}
+.game {
+    /* Adds top and bottom margin to each game card */
+    padding-left: 1rem;
+    transition: all 500ms 500ms ease-in;
+    display: block;
+    font-size: xx-large;
+    background-color: white;
+    margin: 50px 0 50px 0;
+    border: 3px solid black; 
+}
+.fa-solid.fa-arrow-right {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.game:hover {
+    background-color: yellow;
+    color: blue;
+    letter-spacing: 1rem;
+    box-shadow: 10px 10px 0 0 black;
+}
+.game-image {
+    /* Limits height and width of any picture to these dimensions
+       Grows pictures to height and width if they are smaller*/
+    height: 200px;
+    width: 250px;
+}
